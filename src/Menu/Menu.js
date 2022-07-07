@@ -37,19 +37,19 @@ console.log(choice)
                         
                       if(item.category === choice && choice !== null)
                         return(
-                          <div className='col-sm-3 p-3' key={item.id}>
-                            <div className="card" style={{width: "18rem"}}>
-                              <div>
-                                <img src={item.img} class="card-img-top" alt={item.title} height="200px"/>
-                              </div>  
-                              <div className="card-body">
-                                <h4>{item.title}
-                                  <span className='fw-bolder float-end ' style={{fontSize:"13px"}}>${item.price}</span>
-                                  <p className='fw-normal fs-6 pt-3 text-start'>{item.desc}</p>
-                                </h4>
+                            <div className='col-sm-4 p-3' key={item.id}>
+                              <div className="card" style={{width: "18rem"}}>
+                                <div>
+                                  <img src={item.img} class="card-img-top" alt={item.title} height="200px"/>
+                                </div>  
+                                <div className="card-body">
+                                  <h4>{item.title}
+                                    <span className='fw-bolder float-end  p-1 ' style={{fontSize:"13px"}}>${item.price}</span>
+                                    <p className='fw-normal fs-6 pt-3 text-start'>{item.desc}</p>
+                                  </h4>
+                                </div>
                               </div>
                             </div>
-                          </div>
                         )
                         else if(choice === null)
                           return(
@@ -60,7 +60,7 @@ console.log(choice)
                                 </div>  
                                 <div className="card-body">
                                   <h4>{item.title}
-                                    <span className='fw-bolder float-end ' style={{fontSize:"13px"}}>${item.price}</span>
+                                    <span className='fw-bolder float-end' style={{fontSize:"13px"}}>${item.price}</span>
                                     <p className='fw-normal fs-6 pt-3 text-start'>{item.desc}</p>
                                   </h4>
                                 </div>

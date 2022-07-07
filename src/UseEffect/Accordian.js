@@ -52,12 +52,12 @@ export default function Accordian() {
     </div>
   )
 }
-function Acc({title,info}){
+function Acc({title,info,id}){
     const[show,setShow]=useState(false)
 
     return(
         <>
-          <div className='shadow p-3 mb-3'>
+          <div className='shadow p-3 mb-3' key={id}>
             <h4>{title}
                 <span>
                     <button className='float-end' onClick={()=>{setShow(!show)}} style={{border:"transparent"}}>{show ? <AiOutlineMinus/> : <AiOutlinePlus />}</button>

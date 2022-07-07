@@ -5,6 +5,7 @@ import { Navbar,Nav,Container } from 'react-bootstrap'
 import Review from './UseEffect/Review/Review'
 import Accordian from './UseEffect/Accordian'
 import Menu from './Menu/Menu'
+import Control from './Forms/Control'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
                 <Nav.Link as={Link} to="/reviews">Reviews</Nav.Link>
                 <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
                 <Nav.Link as={Link} to="/menu">Menu</Nav.Link>
+                <Nav.Link as={Link} to="/form">Form</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -28,6 +30,7 @@ export default function App() {
           <Route path='/reviews' element={<Review />}></Route>
           <Route path='/faq' element={<Accordian />}></Route>
           <Route path='/menu' element={<Menu />}></Route>
+          <Route path='/form' element={<Control />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
