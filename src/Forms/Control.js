@@ -6,35 +6,56 @@ export default function Control() {
     const[data,setData]=useState([])
     const[isEditing,setIsEditing]=useState(false);
     const[editItem,setEditItem] = useState(person)
+    const [index,setIndex] = useState(0)
 
     const handleChange=(e)=>{
-        const name=e.target.name;
-        const value=e.target.value;
-        const file =e.target.files;
-        file===null ? setPerson({...person,[name]:value}) : setPerson({...person,[name]:file})
+        if(isEditing){
+            const name=e.target.name;
+            const value=e.target.value;
+            const file =e.target.files;
+            if(file !== null){
+                let obj = editItem
+                obj[`${name}`] = file
+                setEditItem(obj)
+                console.log(obj)
+            }else{
+                let obj = editItem
+                obj[`${name}`] = value
+                setEditItem(obj)
+                console.log(obj)
+            }
+        }
+        else{
+            const name=e.target.name;
+            const value=e.target.value;
+            const file =e.target.files;
+            file===null ? setPerson({...person,[name]:value}) : setPerson({...person,[name]:file})
+        }
     }
     const handleSubmit = (e)=>{
         e.preventDefault();
-        if(person.fname && person.email && person.phone && person.file){
+        console.log(data);
+        if(isEditing){
+            data.splice(index,1,editItem)
+            setIsEditing(false)
+        }
+        else if(person.fname && person.email && person.phone && person.file && !isEditing){
             const newPerson = {...person,id:new Date().getTime().toString()};
             setData([...data,newPerson]);
-            setPerson({fname:'',email:'',phone:'',file:null});
-            
+            setPerson({fname:'',email:'',phone:'',file:null});       
         }
     }
 
     const handleRemove = (item) =>{
         const {id} = item;
         const newData = data.filter((rem)=>rem.id!==id);
-        console.log(newData)
         setData(newData)
-        console.log(id);
     }
 
     const handleEdit = (item) =>{
-        const {id} = item;
-        const specificItem = data.find((spitem)=> spitem.id === id);
-        console.log(specificItem);
+        // const {id} = item;
+        // const specificItem = data.find((spitem)=> spitem.id === id);
+        setIndex(data.indexOf(item))
         setIsEditing(true)
         setEditItem(item)
     }
@@ -42,10 +63,9 @@ export default function Control() {
     const reff=useRef(null);
     useEffect(()=>{
         reff.current.focus();
-    },[editItem.fname,editItem.email,editItem.phone])
+    },[])
 
     function Details(){
-        console.log(isEditing)
         return(
             <>
             <div className='offset-sm-3 col-sm-6 shadow p-3'>
@@ -53,22 +73,19 @@ export default function Control() {
                     <h4 className='fw-bolder'>Fill The Below Details</h4>
                     <div>
                         <label htmlFor='fname' className='fw-bold'>Name:</label>
-                        <input className='form-control fw-bold' maxLength="15" ref={reff} type="text" value={editItem.fname} id='fname' onChange={(e) => {
-                            editItem.fname = e.target.value
-                            setEditItem(editItem)
-                        }} required />
+                        <input className='form-control fw-bold' maxLength="15" name='fname' ref={reff} type="text" placeholder={editItem.fname} id='fname' onChange={handleChange}  />
                     </div>
                     <div className='pt-2'>
                         <label htmlFor='email' className='fw-bold'>Email:</label>
-                        <input className='form-control fw-bold' maxLength="20" type="email" value={editItem.email} name='email' id='email' onChange={handleChange} required />
+                        <input className='form-control fw-bold' maxLength="20" type="email" placeholder={editItem.email} name='email' id='email' onChange={handleChange}  />
                     </div>
                     <div className='pt-2'>
                         <label htmlFor='phone' className='fw-bold'>Phone:</label>
-                        <input className='form-control fw-bold' type="tel" maxLength="10" pattern="[6-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" name='phone' value={editItem.phone} onChange={handleChange} id='phone' required />
+                        <input className='form-control fw-bold' type="tel" maxLength="10" pattern="[6-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" name='phone' placeholder={editItem.phone} onChange={handleChange} id='phone'  />
                     </div>
                     <div className='pt-2'>
                         <label htmlFor='file' className='fw-bold'>Image:</label>
-                        <input className='form-control' type="file"   name='file' onChange={handleChange} id='file' required />
+                        <input className='form-control' type="file"   name='file' onChange={handleChange} id='file'  />
                     </div>
                     <div>
                         <button className='btn' type='submit'>Update</button>
@@ -82,7 +99,6 @@ export default function Control() {
   return (
     <div className='container-fluid pt-4'>
         <div className='row p-3'>
-            {console.log(isEditing)}
             {
                 isEditing ? Details() : 
                 <>
@@ -122,7 +138,6 @@ export default function Control() {
                         <div className='card mx-auto' style={{width:"19rem"}}>
                             <div>
                                 <img className='card-img' src={URL.createObjectURL(item.file[0])} alt={item.name} width="200px" height="200px"/>
-                                {console.log(item)}
                             </div>
                             <div className='card-body'>
                                 <h4>Name : {item.fname}</h4>
