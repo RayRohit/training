@@ -39,8 +39,6 @@ export default function Aform() {
                                         <button className='btn' onClick={()=>handleRestore(item)}>
                                             Restore
                                         </button>
-                                        {/* <button className='btn' style={{backgroundColor:"#dc3545",fontSize:"15px"}} onClick={()=>handleRemove(item)}>Remove</button><span className='ps-3'></span>
-                                        <button className='btn' style={{backgroundColor:"#ffc107",color:"grey",fontSize:"15px"}} onClick={()=>handleEdit(item)}>Edit</button> */}
                                     </div>
 
                                 </div>
