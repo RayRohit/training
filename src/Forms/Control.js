@@ -17,12 +17,10 @@ export default function Control() {
                 let obj = editItem
                 obj[`${name}`] = file
                 setEditItem(obj)
-                console.log(obj)
             }else{
                 let obj = editItem
                 obj[`${name}`] = value
                 setEditItem(obj)
-                console.log(obj)
             }
         }
         else{
